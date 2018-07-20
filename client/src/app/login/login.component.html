@@ -1,0 +1,15 @@
+<h1>Make a user and login!</h1>
+
+{{ user | json }}
+
+<form (submit) = "login()" name = "formdata" #formdata='ngForm'>
+  <input type="text" name = "name" 
+  required 
+  minlength = "3" 
+  pattern="^(?! )[A-Za-z0-9 ]*(?<! )$"
+  [(ngModel)] = 'user.name' 
+  #name = "ngModel">
+  <p *ngIf="name.invalid && (name.dirty || name.touched)">Your note must be at least 3 characters long, with no leading or trailing whitespace</p>
+  <input type = "submit" value = "submit" [disabled]= "formdata.status == 'INVALID'">
+</form>
+

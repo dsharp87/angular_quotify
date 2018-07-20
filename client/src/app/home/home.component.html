@@ -1,0 +1,35 @@
+<h1>Quote Maker Yay!</h1>
+
+<h3>Hello {{ user.name }}</h3>
+
+
+<form (submit) = "makequote()" name = "formdata" #formdata='ngForm'>
+  <input type="text" name = "quote" required minlength = "3" [(ngModel)] = 'quote.quote' #thisquote = "ngModel">
+  <p *ngIf="thisquote.invalid && (thisquote.dirty || thisquote.touched)">Your note must be at least 3 characters long</p>
+  <input type = "submit" value = "submit" [disabled]= "formdata.status == 'INVALID'">
+</form>
+
+<a href = "/logout">Logout</a>
+
+<table>
+  <thead>
+    <tr>
+      <th>Quote</th>
+      <th>Name</th>
+      <th>Likes</th>
+      <th>Action</th>
+    </tr >
+  </thead>
+  <tbody>
+    <tr *ngFor="let quote of quotes">
+      <td>{{quote.quote}}</td>
+      <td>{{quote._user.name}}</td>
+      <td>{{quote.likes}}</td>
+      <td *ngIf="user.name == quote._user.name"><a (click)="delete(quote._id)">DELETE</a></td>
+      <td *ngIf="user.name != quote._user.name"><a (click)="like(quote._id)">LIKE!</a></td>
+    </tr>
+  </tbody>
+
+
+
+</table>
